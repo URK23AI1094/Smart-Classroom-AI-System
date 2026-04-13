@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Classroom AI System - Intelligent classroom monitoring with real-time emotion detection and AI-powered insights">
+  <title>Smart Classroom AI — Login</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+  <div class="bg-grid"></div>
+
+  <!-- Main Content -->
+  <div class="app-container">
+    <div class="login-container">
+      <div class="login-card glass-card">
+
+        <!-- Header -->
+        <div class="login-header">
+          <div class="login-logo">🎓</div>
+          <h1>Smart Classroom AI</h1>
+          <p>Intelligent classroom monitoring &amp; analytics</p>
+        </div>
+
+        <!-- Role Tabs -->
+        <div class="role-tabs" id="roleTabs">
+          <button class="role-tab active" data-role="student" id="tabStudent">
+            👨‍🎓 Student
+          </button>
+          <button class="role-tab" data-role="faculty" id="tabFaculty">
+            👩‍🏫 Faculty
+          </button>
+        </div>
+
+        <!-- Error Message -->
+        <div class="login-error" id="loginError"></div>
+
+        <!-- Student Login Form -->
+        <div class="form-section active" id="studentForm">
+          <form id="studentLoginForm">
+            <div class="form-group">
+              <label for="studentName">Full Name</label>
+              <input type="text" id="studentName" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+              <label for="studentRoll">Roll Number</label>
+              <input type="text" id="studentRoll" placeholder="e.g. CS2024001" required>
+            </div>
+            <div class="form-group">
+              <label for="studentClass">Class / Section</label>
+              <input type="text" id="studentClass" placeholder="e.g. CSE-A, 3rd Year" required>
+            </div>
+            <button type="submit" class="btn-primary" id="btnStudentLogin">
+              🚀 Enter Classroom
+            </button>
+          </form>
+        </div>
+
+        <!-- Faculty Login Form -->
+        <div class="form-section" id="facultyForm">
+          <form id="facultyLoginForm">
+            <div class="form-group">
+              <label for="facultyUser">Username</label>
+              <input type="text" id="facultyUser" placeholder="Enter username" required>
+            </div>
+            <div class="form-group">
+              <label for="facultyPass">Password</label>
+              <input type="password" id="facultyPass" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="btn-primary" id="btnFacultyLogin">
+              🔐 Access Dashboard
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

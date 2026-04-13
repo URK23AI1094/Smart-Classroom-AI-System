@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Classroom AI - Student camera view with real-time emotion detection">
+  <title>Smart Classroom AI — Student</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+  <div class="bg-grid"></div>
+
+  <div class="app-container">
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="top-bar-brand">
+        <div class="top-bar-logo">🎓</div>
+        <span class="top-bar-title">Smart Classroom AI</span>
+      </div>
+      <div class="top-bar-info">
+        <div class="student-badge">
+          <div class="status-dot"></div>
+          <span class="name" id="displayName">Student</span>
+          <span id="displayClass"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="student-layout">
+
+      <!-- Left: Webcam + Stats -->
+      <div class="webcam-section">
+
+        <!-- Webcam Feed -->
+        <div class="webcam-container glass-card" id="webcamContainer">
+          <video id="webcamVideo" autoplay muted playsinline></video>
+          <canvas id="overlayCanvas"></canvas>
+          <div class="webcam-status" id="webcamStatus">
+            <div class="live-dot"></div>
+            <span>Initializing...</span>
+          </div>
+          <div class="face-count-badge" id="faceCountBadge">0 faces</div>
+        </div>
+
+        <!-- Mood Stats -->
+        <div class="detection-stats">
+          <div class="stat-card glass-card interested">
+            <div class="stat-icon">✨</div>
+            <div class="stat-value" id="statInterested">0%</div>
+            <div class="stat-label">Interested</div>
+            <div class="mood-bar"><div class="mood-bar-fill" id="barInterested" style="width: 0%"></div></div>
+          </div>
+          <div class="stat-card glass-card confused">
+            <div class="stat-icon">🤔</div>
+            <div class="stat-value" id="statConfused">0%</div>
+            <div class="stat-label">Confused</div>
+            <div class="mood-bar"><div class="mood-bar-fill" id="barConfused" style="width: 0%"></div></div>
+          </div>
+          <div class="stat-card glass-card bored">
+            <div class="stat-icon">😴</div>
+            <div class="stat-value" id="statBored">0%</div>
+            <div class="stat-label">Bored</div>
+            <div class="mood-bar"><div class="mood-bar-fill" id="barBored" style="width: 0%"></div></div>
+          </div>
+          <div class="stat-card glass-card neutral">
+            <div class="stat-icon">😐</div>
+            <div class="stat-value" id="statNeutral">0%</div>
+            <div class="stat-label">Neutral</div>
+            <div class="mood-bar"><div class="mood-bar-fill" id="barNeutral" style="width: 0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Face Log + ELI5 -->
+      <div class="side-panel">
+
+        <!-- Face Detection Log -->
+        <div class="panel-section glass-card">
+          <h3>🔍 Detected Faces</h3>
+          <div class="face-log" id="faceLog">
+            <div class="eli5-placeholder">Waiting for face detection...</div>
+          </div>
+        </div>
+
+        <!-- ELI5 Section -->
+        <div class="panel-section glass-card">
+          <h3>🤖 ELI5 — Explain Simply</h3>
+          <div class="eli5-input-group">
+            <input type="text" id="eli5Input" placeholder="Enter any topic...">
+            <button class="btn-eli5" id="eli5Btn">Explain</button>
+          </div>
+          <div class="eli5-response" id="eli5Response">
+            <div class="eli5-placeholder">Type a topic and click "Explain" to get a simple explanation! 💡</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Libraries -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="js/student.js"></script>
+  <script src="js/eli5.js"></script>
+</body>
+</html>
