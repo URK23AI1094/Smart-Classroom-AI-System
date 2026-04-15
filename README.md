@@ -435,15 +435,81 @@ Premium dark-mode login with glassmorphism card, animated gradient orbs, and rol
 
 ## � Cloud Deployment
 
-### Azure Cloud Deployment (Recommended)
+### ✅ Render Deployment (Easiest - Recommended)
 
-Deploy to **Microsoft Azure** with auto-scaling, monitoring, and global availability:
+Deploy to **Render** for seamless, free hosting with automatic GitHub integration:
+
+- **Platform:** Render Web Service
+- **Auto-Deploy:** Push to GitHub → Auto-deploy on main branch
+- **Features:** Built-in GitHub integration, automatic SSL/HTTPS, free tier available
+- **Pricing:** Free tier (limited resources, spins down after 15 min inactivity) or **Starter $7/month** (recommended for production)
+- **Live URL:** https://smart-classroom-ai.onrender.com
+
+#### Step-by-Step Deployment:
+
+**Step 1: Prepare Your Repository**
+```bash
+# Ensure all code is pushed to GitHub
+git add .
+git commit -m "Prepare for Render deployment"
+git push origin main
+```
+
+**Step 2: Create Render Web Service**
+1. Go to [render.com](https://render.com)
+2. Sign in with your GitHub account
+3. Click **"New +" → "Web Service"**
+4. Connect your `Smart-Classroom-AI-System` GitHub repository
+5. Fill in the form:
+   - **Name:** `smart-classroom-ai`
+   - **Environment:** `Node`
+   - **Region:** Select closest to your users
+   - **Branch:** `main`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+   - **Instance Type:** Free (or Starter $7/month for better performance)
+
+**Step 3: Add Environment Variables**
+In Render Dashboard → Your Service → Environment:
+
+| Key | Value |
+|-----|-------|
+| `GEMINI_API_KEY` | Get from [Google AI Studio](https://aistudio.google.com/app/apikey) |
+| `FACULTY_USER` | `faculty` (or your custom username) |
+| `FACULTY_PASS` | Your secure password (change from default!) |
+| `NODE_ENV` | `production` |
+
+**Step 4: Deploy**
+- Click **"Create Web Service"**
+- Render builds and deploys automatically (2-5 minutes)
+- Your app is live! Access it at: **https://smart-classroom-ai.onrender.com**
+
+**Step 5: Enable Auto-Deploy** (Optional)
+- In Render dashboard → Settings → Auto-deploy on push
+- Now every git push to main automatically redeploys your app
+
+#### Get Gemini API Key:
+1. Visit https://aistudio.google.com/app/apikey
+2. Click **"Get API Key"**
+3. Create a new API key
+4. Copy and paste into Render environment variables
+
+#### 📌 Important Notes:
+- **Free Tier:** Server spins down after 15 min inactivity (slow first load)
+- **Upgrade to Starter** ($7/month) for production use with always-on service
+- Monitor logs in Render dashboard for debugging
+- WebSocket (Socket.IO) works perfectly with Render ✅
+
+---
+
+### 🔵 Azure Cloud Deployment (Alternative - Enterprise)
+
+Deploy to **Microsoft Azure** with enterprise-grade features:
 
 - **Platform:** Azure App Service (Linux)
-- **Auto-Deploy:** GitHub Actions on every push to main
-- **Features:** 99.95% uptime SLA, Auto-scaling, Application Insights
+- **Features:** 99.95% uptime SLA, Auto-scaling, Application Insights, Custom domains
 - **Pricing:** ~$15/month (B1 tier) or free tier during first 12 months
-- **Setup Guide:** [See AZURE-DEPLOYMENT.md](./AZURE-DEPLOYMENT.md)
+- **Setup Guide:** [See AZURE-DEPLOYMENT.md](./AZURE-DEPLOYMENT.md) (Coming Soon)
 
 **Quick Start:**
 ```bash
@@ -457,26 +523,10 @@ az webapp create --resource-group smart-classroom-rg --plan smart-classroom-plan
 # 4. Your app is live at: https://smart-classroom-ai.azurewebsites.net
 ```
 
-### Render Deployment (Alternative)
-
-Deploy to **Render** for a simpler setup (no Azure credentials needed):
-
-- **Platform:** Render Web Service
-- **Auto-Deploy:** GitHub Actions
-- **Features:** Built-in GitHub integration, automatic SSL
-- **Pricing:** Free tier (with cold starts) or Starter $7/month
-- **Setup Guide:** [See DEPLOYMENT.md](./DEPLOYMENT.md)
-
-**Quick Start:**
-```bash
-# 1. Connect GitHub repo to Render
-# 2. Add GEMINI_API_KEY and credentials as env vars
-# 3. Deploy → Your app is live at: https://smart-classroom-ai.onrender.com
-```
-
 ---
 
-## �🔑 Configuration
+## 🔑 Configuration
+
 
 Edit the `.env` file in the project root:
 
