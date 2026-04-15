@@ -1,0 +1,75 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Check for syntax errors
+        run: node -c server.js
+      
+      - name: Run linter (if eslint is configured)
+        run: npm run lint --if-present
+      
+      - name: Log success
+        run: echo "✅ Build completed successfully"
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Deploy to Render
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK" ]; then
+            echo "⚠️ RENDER_DEPLOY_HOOK secret not set. Deployment skipped."
+            echo "To enable auto-deploy, add RENDER_DEPLOY_HOOK secret to GitHub repository settings."
+          else
+            curl -X POST "$RENDER_DEPLOY_HOOK"
+            echo "✅ Deploy webhook triggered"
+          fi
+
+  notify:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [build-and-test, deploy]
+    
+    steps:
+      - name: Check job status
+        run: |
+          if [ "${{ needs.build-and-test.result }}" == "success" ]; then
+            echo "✅ Build successful"
+          else
+            echo "❌ Build failed"
+            exit 1
+          fi
