@@ -433,7 +433,50 @@ Premium dark-mode login with glassmorphism card, animated gradient orbs, and rol
 
 ---
 
-## 🔑 Configuration
+## � Cloud Deployment
+
+### Azure Cloud Deployment (Recommended)
+
+Deploy to **Microsoft Azure** with auto-scaling, monitoring, and global availability:
+
+- **Platform:** Azure App Service (Linux)
+- **Auto-Deploy:** GitHub Actions on every push to main
+- **Features:** 99.95% uptime SLA, Auto-scaling, Application Insights
+- **Pricing:** ~$15/month (B1 tier) or free tier during first 12 months
+- **Setup Guide:** [See AZURE-DEPLOYMENT.md](./AZURE-DEPLOYMENT.md)
+
+**Quick Start:**
+```bash
+# 1. Create Azure resources (via Portal or CLI)
+az group create --name smart-classroom-rg --location eastus
+az appservice plan create --name smart-classroom-plan --resource-group smart-classroom-rg --sku B1 --is-linux
+az webapp create --resource-group smart-classroom-rg --plan smart-classroom-plan --name smart-classroom-ai --runtime "NODE|18-lts"
+
+# 2. Add GitHub secrets (AZURE_CREDENTIALS, AZURE_PUBLISH_PROFILE)
+# 3. Push to main → Auto-deploy via GitHub Actions
+# 4. Your app is live at: https://smart-classroom-ai.azurewebsites.net
+```
+
+### Render Deployment (Alternative)
+
+Deploy to **Render** for a simpler setup (no Azure credentials needed):
+
+- **Platform:** Render Web Service
+- **Auto-Deploy:** GitHub Actions
+- **Features:** Built-in GitHub integration, automatic SSL
+- **Pricing:** Free tier (with cold starts) or Starter $7/month
+- **Setup Guide:** [See DEPLOYMENT.md](./DEPLOYMENT.md)
+
+**Quick Start:**
+```bash
+# 1. Connect GitHub repo to Render
+# 2. Add GEMINI_API_KEY and credentials as env vars
+# 3. Deploy → Your app is live at: https://smart-classroom-ai.onrender.com
+```
+
+---
+
+## �🔑 Configuration
 
 Edit the `.env` file in the project root:
 
@@ -532,5 +575,6 @@ This project is developed as an academic mini-project.
 🎓 Smart Classroom AI System © 2026
 
 </div>
-#   m i n i p r o j e c t  
+#   m i n i p r o j e c t 
+ 
  
